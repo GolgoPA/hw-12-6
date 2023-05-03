@@ -44,7 +44,7 @@ chown -R mysql: /var/log/mysql
 #### Добавить в /etc/my.cnf :
 ```
 bind-address=0.0.0.0
-server-id=(должны различаться)
+server-id=(1..n)
 log_bin=/var/log/mysql/mybin.log
 ```
 #### Посмотреть пароль присвоенный при инициализации бд:
