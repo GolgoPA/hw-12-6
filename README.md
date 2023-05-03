@@ -61,6 +61,35 @@ ALTER USER 'root'@'localhost' IDENTIFIED BY '12345';
 ```sql
 FLUSH PRIVILEGES;
 ```
+#### На мастере:
+```sql
+CREATE USER 'replication'@'%' IDENTIFIED WITH mysql_native_password BY 'Repl11Pass!';
+GRANT REPLICATION SLAVE ON *.* TO 'replication'@'%';
+```
+```sql
+SHOW MASTER STATUS;
+```
+![12-6-2-1](./hw-12-6/12-6-2-1.png)
+#### На слэйве:
+```sql
+CHANGE MASTER TO MASTER_HOST='192.168.*.*', MASTER_USER='replication', MASTER_PASSWORD='Repl11Pass!', MASTER_LOG_FILE = 'mybin.000001', MASTER_LOG_POS = (число из колонки position из статуса мастера);
+```
+```sql
+START SLAVE;
+```
+```sql
+SHOW SLAVE STATUS\G;
+```
+![12-6-2-2](./hw-12-6/12-6-2-2.png)
+#### На мастере: 
+```sql
+create database hw_12_6_Golikov;
+```
+#### На слэйве:
+```sql
+show databases;
+```
+![12-6-2-3](./hw-12-6/12-6-2-3.png)
 ---
 
 ## Дополнительные задания (со звёздочкой*)
